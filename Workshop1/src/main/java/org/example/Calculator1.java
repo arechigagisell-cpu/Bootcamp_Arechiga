@@ -24,10 +24,7 @@ public class Calculator1 {
         System.out.printf("The total interest is $%.2f%n", totalInterest);
 
 
-
-
-
-
+        scanner.close();
 
     }
 }
