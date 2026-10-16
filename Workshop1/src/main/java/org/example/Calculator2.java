@@ -13,14 +13,16 @@ public class Calculator2 {
         System.out.println("Enter the amount of years: ");
         int years = scanner.nextInt();
 
-        double dayRate = annualInterest /100 /365;
+        double dayRate = (annualInterest /100);
         int totalDay = years * 365;
 
+        double futureValue = deposit * Math.pow(1 + (dayRate/365), totalDay);
+        double interestEarned = futureValue - deposit;
 
+        System.out.printf("The end value is: %.2f%n", futureValue);
+        System.out.printf("The total interest is: %.2f%n", interestEarned);
 
-
-
-
+        scanner.close();
 
 
     }
