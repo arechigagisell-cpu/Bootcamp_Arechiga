@@ -83,6 +83,40 @@ public class Main {
                     break;
 
                 case 2:
+                    System.out.println("-------BOOKS OUT ON AN ADVENTURE------");
+                    for(int i = 0; i < book.length; i++){
+                        if(book[i].isCheckedOut() == true){
+                            System.out.println(
+                                    book[i].getId() + " | " + book[i].getIsbn() + " | " + book[i].getTitle() + " | Reader: " + book[i].getCheckedOutTo()
+                            );
+                        }
+                    }
+                    System.out.println("C - Check In a Book");
+                    System.out.println("X - Back to Main Menu");
+                    System.out.println("Your selection: ");
+
+                    String action = scanner.next();
+
+                    if (action.equalsIgnoreCase("C")){
+                        System.out.println("Enter the book ID to return: ");
+                        int returnId = scanner.nextInt();
+
+                        boolean returned = false;
+
+                        for (int i = 0; i < book.length;i++){
+                            if (book[i].getId() == returnId && book[i].isCheckedOut() == true){
+                                book[i].checkIn();
+                                returned = true;
+
+                                System.out.println("Your book is has been returned!");
+                                break;
+                            }
+                        }
+                        if (returned == false){
+                            System.out.println("No borrowed book found with that ID.");
+                        }
+                    }
+                    break;
 
             }
         }
