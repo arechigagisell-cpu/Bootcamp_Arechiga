@@ -13,8 +13,12 @@ public class Book {
         this.title = title;
         this.isCheckedOut = isCheckedOut;
         this.checkedOutTo = checkedOutTo;
+    }
 
-
+    public Book(int id, String isbn, String title) {
+        this.id = id;
+        this.isbn = isbn;
+        this.title = title;
     }
 
     public int getId() {
@@ -60,6 +64,7 @@ public class Book {
         if (isCheckedOut == false){
             isCheckedOut = true;
             checkedOutTo =name;
+            System.out.println("You have checked out this book");
         }
         else{
             System.out.println("Book has been checked out");
