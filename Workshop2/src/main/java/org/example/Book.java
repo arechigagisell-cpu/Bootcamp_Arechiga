@@ -56,5 +56,19 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+    public void checkOut(String name){
+        if (isCheckedOut == false){
+            isCheckedOut = true;
+            checkedOutTo =name;
+        }
+        else{
+            System.out.println("Book has been checked out");
+        }
 
+    }
+
+    public void checkIn(){
+        isCheckedOut = false;
+        checkedOutTo ="";
+    }
 }
