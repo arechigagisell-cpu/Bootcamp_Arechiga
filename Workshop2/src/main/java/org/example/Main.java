@@ -8,23 +8,23 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Book[] book = {
-                new Book(1024, "9780000000001", "Shatter Me"),
+                new Book(1024, "9780000000001", "Shatter Me", true,"Sarah"),
                 new Book(2157, "9780000000002", "Harry Potter"),
                 new Book(3098, "9780000000003", "The Hunger Games"),
                 new Book(4126, "9780000000004", "The Notebook"),
-                new Book(5381, "9780000000005", "The Silent Patient"),
+                new Book(5381, "9780000000005", "The Silent Patient",true,"Debra"),
                 new Book(6472, "9780000000006", "It"),
         new Book(7539, "9780000000007", "The Hobbit"),
         new Book(8645, "9780000000008", "Atomic Habits"),
         new Book(9713, "9780000000009", "Becoming"),
         new Book(1082, "9780000000010", "The Great Gatsby"),
         new Book(2349, "9780000000011", "Dune"),
-        new Book(3567, "9780000000012", "The Maze Runner"),
+        new Book(3567, "9780000000012", "The Maze Runner",true, "Bryce"),
         new Book(4781, "9780000000013", "Gone Girl"),
         new Book(5916, "9780000000014", "Wonder"),
         new Book(6238, "9780000000015", "The Fault in Our Stars"),
         new Book(7451, "9780000000016", "Educated"),
-        new Book(8679, "9780000000017", "The Alchemist"),
+        new Book(8679, "9780000000017", "The Alchemist",true,"Kristal"),
         new Book(9824, "9780000000018", "Pride and Prejudice"),
         new Book(1356, "9780000000019", "The Martian"),
         new Book(2693, "9780000000020", "The Lightning Thief"),
@@ -117,8 +117,13 @@ public class Main {
                         }
                     }
                     break;
-
+                case 3:
+                    System.out.println("Thanks for visiting! See you next chapter!");
+                    break;
+                default:
+                    System.out.println("Please enter a number from 1 to 3.");
             }
         }
+        scanner.close();
     }
 }
