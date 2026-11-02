@@ -5,6 +5,8 @@ import jdk.swing.interop.SwingInterOpUtils;
 import java.beans.beancontext.BeanContextServiceRevokedEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -205,6 +207,34 @@ public class Main {
         }
     }
     public static void showDateReport(int reportType){
+        ArrayList<Transaction> results = new ArrayList<>();
 
+        LocalDate today = LocalDate.now();
+        YearMonth thisMonth = YearMonth.from(today);
+        YearMonth lastMonth = thisMonth.minusMonths(1);
+
+        for (Transaction transaction : transactions){
+            LocalDate date = transaction.getDate();
+
+            if (reportType ==1){
+                if (YearMonth.from(date).equals(thisMonth) && !date.isAfter(today)){
+                    results.add(transaction);
+                }
+            }else if (reportType == 2){
+                if (YearMonth.from(date).equals(lastMonth)){
+                    results.add(transaction);
+                }
+            }else if (reportType == 3){
+                if (date.getYear() == today.getYear() && !date.isAfter(today)){
+                    results.add(transaction);
+                }
+            }else if (reportType == 4){
+                if (date.getYear() == today.getYear() - 1){
+                    results.add(transaction);
+                }
+            }
+        }
+        System.out.println("\n DATE REPORT ");
+        displayTransactions(results);
     }
     }
