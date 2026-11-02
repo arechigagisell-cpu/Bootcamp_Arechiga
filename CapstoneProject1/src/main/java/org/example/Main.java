@@ -127,4 +127,15 @@ public class Main {
         System.out.println("\n\uD83D\uDCB0\uD83D\uDCB0\uD83D\uDCB0 DEPOSITS \uD83D\uDCB0\uD83D\uDCB0\uD83D\uDCB0");
         displayTransactions(deposits);
     }
+    public static void  showPayments(){
+        ArrayList<Transaction> payments = new ArrayList<>();
+
+        for (Transaction transaction : transactions){
+            if (transaction.getAmount() < 0){
+                payments.add(transaction);
+            }
+        }
+        System.out.println("\n PAYMENTS ");
+        displayTransactions(payments);
+    }
     }
