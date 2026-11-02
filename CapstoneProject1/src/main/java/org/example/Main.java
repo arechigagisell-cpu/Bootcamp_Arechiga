@@ -116,5 +116,15 @@ public class Main {
             }
         }
     }
+    public static void  showDeposits(){
+        ArrayList<Transaction> deposits = new ArrayList<>();
 
+        for (Transaction transaction : transactions){
+            if (transaction.getAmount() > 0){
+                deposits.add(transaction);
+            }
+        }
+        System.out.println("\n\uD83D\uDCB0\uD83D\uDCB0\uD83D\uDCB0 DEPOSITS \uD83D\uDCB0\uD83D\uDCB0\uD83D\uDCB0");
+        displayTransactions(deposits);
+    }
     }
