@@ -1,8 +1,6 @@
 package org.example;
-
 import jdk.swing.interop.SwingInterOpUtils;
 
-import java.beans.beancontext.BeanContextServiceRevokedEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Year;
@@ -235,6 +233,64 @@ public class Main {
             }
         }
         System.out.println("\n DATE REPORT ");
+        displayTransactions(results);
+    }
+    public static void  searchByVendor(){
+        System.out.print("Enter vendor name: ");
+        String vendorName = scanner.nextLine().trim();
+
+        ArrayList<Transaction> results = new ArrayList<>();
+
+        for (Transaction transaction : transactions){
+            if (transaction.getVendor().toLowerCase().contains(vendorName.toLowerCase())){
+                results.add(transaction);
+            }
+        }
+        System.out.println("\n VENDOR SEARCH ");
+        displayTransactions(results);
+    }
+    public static void  customeSearch(){
+        System.out.println("\n CUSTOM SEARCH ");
+        System.out.println("leave a field blank to skip it.");
+
+        LocalDate startDate = readOptionalDate("Start date (YYYY-MM-DD): ");
+        LocalDate endDate = readOptionalDate("End date (YYYY-MM-DD): ");
+
+        System.out.print("Description: ");
+        String description = scanner.nextLine().trim().toLowerCase();
+        System.out.print("Vendor: ");
+        String vendor = scanner.nextLine().trim().toLowerCase();
+
+        double amount = readOptionalAmount("Amount: ");
+
+        if (startDate != null && endDate != null && startDate.isAfter(endDate)){
+            System.out.println("Start date cannot be after end date");
+            return;
+        }
+        ArrayList<Transaction> results = new ArrayList<>();
+        for (Transaction transaction : transactions){
+            boolean matches = true;
+
+            if (startDate != null && transaction.getDate().isBefore(startDate)){
+                matches = false;
+            }
+            if (endDate != null && transaction.getDate().isAfter(endDate)){
+                matches = false;
+            }
+            if (!description.isEmpty() && !transaction.getDescription().toLowerCase().contains(description)){
+                matches = false;
+            }
+            if (!vendor.isEmpty() && !transaction.getVendor().toLowerCase().contains(vendor)){
+                matches = false;
+            }
+            if (amount != null && Math.abs(transaction.getAmount() - amount) > 0.001){
+                matches = false;
+            }
+            if (matches){
+                results.add(transaction);
+            }
+        }
+        System.out.println("\n CUSTOM SEARCH RESULTS ");
         displayTransactions(results);
     }
     }
