@@ -2,6 +2,8 @@ package org.example;
 
 import jdk.swing.interop.SwingInterOpUtils;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
@@ -46,5 +48,37 @@ public class Main {
         }
         scanner.close();
         }
+    public static void addTransaction(boolean isDeposit){
 
+        if (isDeposit){
+            System.out.println("\n\uD83D\uDC3E ADD DEPOSIT \uD83D\uDC3E");
+        }else{
+            System.out.println("\n\uD83D\uDCB8 MAKE PAYMENT \uD83D\uDCB8");
+        }
+        System.out.print("Enter description: ");
+        String description = scanner.nextLine().trim();
+
+        System.out.print("Enter vendor or customer: ");
+        String vendor = scanner.nextLine().trim();
+
+        if(description.isEmpty() || vendor.isEmpty() || description.contains("|") || vendor.contains("|")){
+            System.out.println("Description and vendor must be empty");
+            System.out.println("or contain the | character.");
+            return;
+        }
+        double amount = readAmount("Enter amount: ");
+
+        if (!isDeposit){
+            amount = -amount;
+        }
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now().truncatedTo(chronoUnit.SECONDS);
+
+        Transaction newTransaction = new Transaction(date, time,description, vendor, amount);
+
+        if(FileManager.saveTransaction(newTransaction)){
+            transactions.add(newTransaction);
+            System.out.println("Transaction saved successfully!");
+        }
+    }
     }
