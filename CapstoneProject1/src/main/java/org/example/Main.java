@@ -2,6 +2,7 @@ package org.example;
 
 import jdk.swing.interop.SwingInterOpUtils;
 
+import java.beans.beancontext.BeanContextServiceRevokedEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -159,5 +160,51 @@ public class Main {
         for (Transaction transaction: sortedList){
             System.out.printf("%-12s %-10s %-25s %-25s %12.2f%n", transaction.getDate(),transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
         }
+    }
+    public static void showReports(){
+        boolean viewingReports = true;
+
+        while(viewingReports){
+            System.out.println("\n REPORTS ");
+            System.out.println("1) Month To Date");
+            System.out.println("2) Previous Month");
+            System.out.println("3) Year To Date");
+            System.out.println("4) Previous Year");
+            System.out.println("5) Search by vendor");
+            System.out.println("6) Custom Search");
+            System.out.println("0) Back");
+            System.out.println("Choose an option: ");
+
+            String choice = scanner.nextLine().trim();
+
+            switch (choice){
+                case "1":
+                    showDateReport(1);
+                    break;
+                case "2":
+                    showDateReport(2);
+                    break;
+                case "3":
+                    showDateReport(3);
+                    break;
+                case "4":
+                    showDateReport(4);
+                    break;
+                case "5":
+                    searchByVendor();
+                    break;
+                case "6":
+                    customeSearch();
+                    break;
+                case "0":
+                    viewingReports = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. try again.");
+            }
+        }
+    }
+    public static void showDateReport(int reportType){
+
     }
     }
