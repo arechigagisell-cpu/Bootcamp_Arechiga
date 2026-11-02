@@ -138,4 +138,26 @@ public class Main {
         System.out.println("\n PAYMENTS ");
         displayTransactions(payments);
     }
+    public static void  displayTransactions(
+            ArrayList<Transaction> transactionList){
+        if (transactionList.isEmpty()){
+            System.out.println("No transactions found.");
+            return;
+        }
+        ArrayList<Transaction> sortedList = new ArrayList<>(transactionList);
+        sortedList.sort((first, second) ->{
+            int dateOrder = second.getDate().compareTo(first.getDate());
+
+            if (dateOrder != 0){
+                return dateOrder;
+            }
+            return second.getTime().compareTo(first.getTime());
+        });
+        System.out.printf("%-12s %-10s %-25s %-25s %12s%n", "date", "Time", "Description", "Vendor", "Amount");
+        System.out.println("____________________" + "____________________");
+
+        for (Transaction transaction: sortedList){
+            System.out.printf("%-12s %-10s %-25s %-25s %12.2f%n", transaction.getDate(),transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
+        }
+    }
     }
