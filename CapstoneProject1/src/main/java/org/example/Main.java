@@ -81,4 +81,40 @@ public class Main {
             System.out.println("Transaction saved successfully!");
         }
     }
+    public static void showLedger(){
+        boolean viewingLedger = true;
+
+        while(viewingLedger){
+            System.out.println("\n\uD83D\uDCD6\uD83D\uDCD6\uD83D\uDCD6 LEDGER \uD83D\uDCD6\uD83D\uDCD6\uD83D\uDCD6");
+            System.out.println("A- All Transactions");
+            System.out.println("D- Deposits");
+            System.out.println("P- Payments");
+            System.out.println("R- Reports");
+            System.out.println("H- Home");
+            System.out.print("Choose an option: ");
+
+            String choice = scanner.nextLine().trim().toUpperCase();
+
+            switch (choice){
+                case "A":
+                    displayTransactions(transactions);
+                    break;
+                case "D":
+                    showDeposits();
+                    break;
+                case "P":
+                    showPayments();
+                    break;
+                case "R":
+                    showReports();
+                    break;
+                case "H":
+                    viewingLedger = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+
     }
