@@ -1,5 +1,7 @@
 package org.example;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
@@ -20,6 +22,8 @@ public class Main {
             System.out.println("D) \uD83D\uDCB0 Add some Funds(Deposit)");
             System.out.println("P) \uD83D\uDCB8 Pay the Bills (Debit)");
             System.out.println("L) \uD83D\uDCD6  Peek at the paw Ledger");
+            System.out.println("C) \uD83D\uDC36 Customer and Pet Profiles");
+            System.out.println("A) \uD83D\uDCC5 Pa-some Appointment Center");
             System.out.println("X) \uD83D\uDC36 Time to Paw Out! (Exit)");
             System.out.print("Choose an option: ");
 
@@ -35,6 +39,12 @@ public class Main {
                 case "L":
                     showLedger();
                     break;
+                case "C":
+                    customerProfileMenu();
+                    break;
+                case "A":
+                    showAppointments();
+                    break;
                 case "X":
                     System.out.println("\uD83D\uDC3E Thank you for visiting Happy Paws!");
                     System.out.println("Keep those tails wagging!");
@@ -42,7 +52,7 @@ public class Main {
                     break;
                 default:
                     System.out.println("\uD83D\uDC3E Oops! Wrong paw!");
-                    System.out.println("Please choose D, P, L, or X.");
+                    System.out.println("Please choose D, P, L, C, A or X.");
             }
         }
         scanner.close();
@@ -341,6 +351,37 @@ public class Main {
                 System.out.println("Enter a valid amount.");
             }catch (NumberFormatException ex){
                 System.out.println("Please enter a valid number.");
+            }
+        }
+    }
+    public static void customerProfileMenu(){
+        boolean viewingProfiles = true;
+
+        while(viewingProfiles){
+            System.out.println("\n\uD83D\uDC36\uD83D\uDC36\uD83D\uDC36 CUSTOMER AND PET PROFILES \uD83D\uDC36\uD83D\uDC36\uD83D\uDC36");
+            System.out.println("1) Register a Furry friend");
+            System.out.println("2) View All Profiles");
+            System.out.println("3) Sniff Out a Patient");
+            System.out.println("0) Back to Home");
+            System.out.print("Choose an option: ");
+
+            String choice = scanner.nextLine().trim();
+
+            switch(choice){
+                case "1":
+                    creatClientProfile();
+                    break;
+                case "2":
+                    viewClientProfiles();
+                    break;
+                case "3":
+                    searchClientProfile();
+                    break;
+                case "0":
+                    viewingProfiles = false;
+                    break;
+                default:
+                    System.out.println("\uD83D\uDC3E Invalid profile option.");
             }
         }
     }
