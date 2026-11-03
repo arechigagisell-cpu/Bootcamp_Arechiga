@@ -1,12 +1,10 @@
 package org.example;
-import jdk.swing.interop.SwingInterOpUtils;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Year;
 import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -18,8 +16,8 @@ public class Main {
         boolean running = true;
 
         while(running){
-            System.out.println("\n\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC36  HAPPY PAWS VETERINARY LEDGER  \uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC36");
-            System.out.println("D) \uD83D\uDCB0 Add some funds(Deposit)");
+            System.out.println("\n\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC36  HAPPY PAWS VETERINARY LEDGER  \uD83D\uDC36\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E  ");
+            System.out.println("D) \uD83D\uDCB0 Add some Funds(Deposit)");
             System.out.println("P) \uD83D\uDCB8 Pay the Bills (Debit)");
             System.out.println("L) \uD83D\uDCD6  Peek at the paw Ledger");
             System.out.println("X) \uD83D\uDC36 Time to Paw Out! (Exit)");
@@ -73,7 +71,7 @@ public class Main {
             amount = -amount;
         }
         LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now().truncatedTo(chronoUnit.SECONDS);
+        LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
 
         Transaction newTransaction = new Transaction(date, time,description, vendor, amount);
 
@@ -136,7 +134,7 @@ public class Main {
                 payments.add(transaction);
             }
         }
-        System.out.println("\n PAYMENTS ");
+        System.out.println("\n\uD83D\uDCB3✨\uD83D\uDCB3✨ PAYMENTS ✨\uD83D\uDCB3✨\uD83D\uDCB3 ");
         displayTransactions(payments);
     }
     public static void  displayTransactions(
@@ -154,18 +152,19 @@ public class Main {
             }
             return second.getTime().compareTo(first.getTime());
         });
-        System.out.printf("%-12s %-10s %-25s %-25s %12s%n", "date", "Time", "Description", "Vendor", "Amount");
-        System.out.println("____________________" + "____________________");
+        System.out.println("-".repeat(93));
+        System.out.printf("%-12s %-10s %-26s %-28s %12s%n", "Date", "Time", "Description", "Vendor", "Amount");
 
+        System.out.println("-".repeat(93));
         for (Transaction transaction: sortedList){
-            System.out.printf("%-12s %-10s %-25s %-25s %12.2f%n", transaction.getDate(),transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
+            System.out.printf("%-12s %-10s %-26.26s %-28.28s %12.2f%n", transaction.getDate(),transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
         }
     }
     public static void showReports(){
         boolean viewingReports = true;
 
         while(viewingReports){
-            System.out.println("\n REPORTS ");
+            System.out.println("\n\uD83D\uDC3E\uD83D\uDCC8\uD83D\uDC3E\uD83D\uDCC8 REPORTS \uD83D\uDCC8\uD83D\uDC3E\uD83D\uDCC8\uD83D\uDC3E");
             System.out.println("1) Month To Date");
             System.out.println("2) Previous Month");
             System.out.println("3) Year To Date");
@@ -194,7 +193,7 @@ public class Main {
                     searchByVendor();
                     break;
                 case "6":
-                    customeSearch();
+                    customSearch();
                     break;
                 case "0":
                     viewingReports = false;
@@ -232,7 +231,7 @@ public class Main {
                 }
             }
         }
-        System.out.println("\n DATE REPORT ");
+        System.out.println("\n\uD83D\uDCC5\uD83D\uDC3E\uD83D\uDCC5\uD83D\uDC3E\uD83D\uDCC5\uD83D\uDC3E DATE REPORT \uD83D\uDC3E\uD83D\uDCC5\uD83D\uDC3E\uD83D\uDCC5\uD83D\uDC3E\uD83D\uDCC5 ");
         displayTransactions(results);
     }
     public static void  searchByVendor(){
@@ -246,12 +245,12 @@ public class Main {
                 results.add(transaction);
             }
         }
-        System.out.println("\n VENDOR SEARCH ");
+        System.out.println("\n\uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E VENDOR SEARCH \uD83D\uDC3E\uD83D\uDC3E\uD83D\uDC3E");
         displayTransactions(results);
     }
-    public static void  customeSearch(){
-        System.out.println("\n CUSTOM SEARCH ");
-        System.out.println("leave a field blank to skip it.");
+    public static void  customSearch(){
+        System.out.println("\n\uD83D\uDD0D\uD83D\uDC36 \uD83D\uDD0D\uD83D\uDC36 \uD83D\uDD0D\uD83D\uDC36 CUSTOM SEARCH \uD83D\uDC36\uD83D\uDD0D\uD83D\uDC36\uD83D\uDD0D\uD83D\uDC36\uD83D\uDD0D ");
+        System.out.println("\uD83E\uDDB4\uD83E\uDDB4\uD83E\uDDB4 leave a field blank to skip it.\uD83E\uDDB4\uD83E\uDDB4\uD83E\uDDB4");
 
         LocalDate startDate = readOptionalDate("Start date (YYYY-MM-DD): ");
         LocalDate endDate = readOptionalDate("End date (YYYY-MM-DD): ");
@@ -261,7 +260,7 @@ public class Main {
         System.out.print("Vendor: ");
         String vendor = scanner.nextLine().trim().toLowerCase();
 
-        double amount = readOptionalAmount("Amount: ");
+        Double amount = readOptionalAmount("Amount: ");
 
         if (startDate != null && endDate != null && startDate.isAfter(endDate)){
             System.out.println("Start date cannot be after end date");
@@ -283,14 +282,66 @@ public class Main {
             if (!vendor.isEmpty() && !transaction.getVendor().toLowerCase().contains(vendor)){
                 matches = false;
             }
-            if (amount != null && Math.abs(transaction.getAmount() - amount) > 0.001){
-                matches = false;
+            if (amount != null){
+                if(Math.abs(Math.abs(transaction.getAmount()) - Math.abs(amount)) > 0.001){
+                    matches = false;
+            }
             }
             if (matches){
                 results.add(transaction);
             }
         }
-        System.out.println("\n CUSTOM SEARCH RESULTS ");
+        System.out.println("\n\uD83E\uDDB4\uD83D\uDC36 \uD83E\uDDB4\uD83D\uDC36  CUSTOM SEARCH RESULTS \uD83D\uDC36\uD83E\uDDB4\uD83D\uDC36\uD83E\uDDB4");
         displayTransactions(results);
+    }
+    public static double readAmount(String message){
+        while(true){
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            try {
+                double amount = Double.parseDouble(input);
+                if (Double.isFinite(amount) && amount >0){
+                    return amount;
+                }
+                System.out.println("Enter an amount greater than zero.");
+            }catch (NumberFormatException ex){
+                System.out.println("Please enter a valid number.");
+            }
+        }
+    }
+    public static LocalDate readOptionalDate(String message){
+        while(true){
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()){
+                return null;
+            }
+            try {
+                return LocalDate.parse(input);
+            }catch (Exception ex){
+                System.out.println("Use the format YYYY-MM-DD.");
+            }
+        }
+    }
+    public static Double readOptionalAmount(String message){
+        while(true){
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()){
+                return null;
+            }
+            try {
+                double amount = Double.parseDouble(input);
+                if (Double.isFinite(amount)){
+                    return amount;
+                }
+                System.out.println("Enter a valid amount.");
+            }catch (NumberFormatException ex){
+                System.out.println("Please enter a valid number.");
+            }
+        }
     }
     }

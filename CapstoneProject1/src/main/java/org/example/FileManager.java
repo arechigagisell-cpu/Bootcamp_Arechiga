@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class FileManager {
-    private static final String FILE_NAME = "transactions.csv";
+    private static final String FILE_NAME = "src/main/resources/transactions.csv";
     public static ArrayList<Transaction> loadTransactions(){
         ArrayList<Transaction> transactions = new ArrayList<>();
 
