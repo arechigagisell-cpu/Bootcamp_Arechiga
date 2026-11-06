@@ -554,6 +554,24 @@ public class Main {
             System.out.println("Please choose a future appointment.");
             return;
         }
+        //Check appointment hours
+        LocalTime openingTime = LocalTime.of(8,0);
+        LocalTime closingTime = LocalTime.of(19,0);
+
+        if (time.isBefore(openingTime) || time.isAfter(closingTime)){
+            System.out.println("Appointments are only available from 8:00AM to 7:00PM");
+            return;
+        }
+        //convert appointment to UTC
+        ZoneId userZone = ZoneId.of("America/New_York");
+
+        LocalDateTime localDateTime = date.atTime(time);
+        ZonedDateTime utcDateTime = localDateTime.atZone(userZone).withZoneSameInstant(ZoneOffset.UTC);
+
+        date = utcDateTime.toLocalDate();
+        time = utcDateTime.toLocalTime();
+
+
         for (Appointment appointment : appointments){
             if (appointment.getClientId() == clientId && appointment.getDate().equals(date) && appointment.getTime().equals(time)){
                 System.out.println("This pet is already booked then!");
