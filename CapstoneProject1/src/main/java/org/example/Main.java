@@ -603,7 +603,13 @@ public class Main {
         System.out.println("-".repeat(100));
 
         for (Appointment appointment : sorted){
-            System.out.printf("%-5d %-10d %-15.15s %-18.18s %-22.22s %15s %-10s%n", appointment.getId(), appointment.getClientId(), appointment.getPetName(), appointment.getOwnerName(), appointment.getReason(), appointment.getDate(), appointment.getTime());
+            LocalDateTime utcDateTime = appointment.getDate().atTime(appointment.getTime());
+            ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(userZone);
+            //converts military time to AM/PM
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("h:mm a");
+            String displayTime = localDateTime.format(timeFormat);
+
+            System.out.printf("%-5d %-10d %-15.15s %-18.18s %-22.22s %15s %-10s%n", appointment.getId(), appointment.getClientId(), appointment.getPetName(), appointment.getOwnerName(), appointment.getReason(), localDateTime.toLocalDate(), displayTime);
         }
         System.out.println("-".repeat(102));
     }
