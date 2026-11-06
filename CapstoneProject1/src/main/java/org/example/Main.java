@@ -571,12 +571,10 @@ public class Main {
         date = utcDateTime.toLocalDate();
         time = utcDateTime.toLocalTime();
 
-
-        for (Appointment appointment : appointments){
-            if (appointment.getClientId() == clientId && appointment.getDate().equals(date) && appointment.getTime().equals(time)){
-                System.out.println("This pet is already booked then!");
-                return;
-            }
+        if (AppointmentManager.isTimeBooked(appointments,date,time)){
+            System.out.println("This appointment time is already booked!");
+            System.out.println("Please choose another available time.");
+            return;
         }
         int nextId = 1;
 
