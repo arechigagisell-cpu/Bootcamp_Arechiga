@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class AppointmentManager {
     private static final String FILE_NAME = "appointments.csv";
-    public static ArrayList<Appointment> loadingAppointments(){
+    public static ArrayList<Appointment> loadAppointments(){
         ArrayList<Appointment> appointments = new ArrayList<>();
 
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))){
@@ -47,5 +47,13 @@ public class AppointmentManager {
             System.out.println("Error saving appointments");
             return false;
         }
+    }
+    public static boolean isTimeBooked(ArrayList<Appointment>appointments,LocalDate date, LocalTime time){
+        for (Appointment appointment : appointments){
+            if (appointment.getDate().equals(date) && appointment.getTime().equals(time)){
+                return true;
+            }
+        }
+        return false;
     }
 }

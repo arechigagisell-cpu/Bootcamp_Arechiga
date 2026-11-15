@@ -8,11 +8,11 @@ public class ClientProfile {
     private String petType;
     private String petBreed;
 
-    public ClientProfile(int clientId, String petName, String phoneNumber, String ownerName, String petType, String petBreed) {
+    public ClientProfile(int clientId, String ownerName, String phoneNumber, String petName , String petType, String petBreed) {
         this.clientId = clientId;
-        this.petName = petName;
-        this.phoneNumber = phoneNumber;
         this.ownerName = ownerName;
+        this.phoneNumber = phoneNumber;
+        this.petName = petName;
         this.petType = petType;
         this.petBreed = petBreed;
     }

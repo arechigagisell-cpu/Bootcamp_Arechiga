@@ -1,10 +1,10 @@
 package org.example;
-
-import jdk.swing.interop.SwingInterOpUtils;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.YearMonth;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,6 +14,8 @@ import java.util.Scanner;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Transaction> transactions = FileManager.loadTransactions();
+    static ArrayList<ClientProfile> clientProfiles = ProfileManager.loadProfiles();
+    static ArrayList<Appointment> appointments = AppointmentManager.loadAppointments();
     public static void main(String[] args) {
         boolean running = true;
 
@@ -70,9 +72,20 @@ public class Main {
         System.out.print("Enter vendor or customer: ");
         String vendor = scanner.nextLine().trim();
 
-        if(description.isEmpty() || vendor.isEmpty() || description.contains("|") || vendor.contains("|")){
-            System.out.println("Description and vendor must be empty");
-            System.out.println("or contain the | character.");
+        if(description.isEmpty()) {
+            System.out.println("Description cannot be empty!");
+            return;
+        }
+        if (description.contains("|")){
+            System.out.println("Description cannot contain the | character!");
+            return;
+        }
+        if (vendor.isEmpty()){
+            System.out.println("Vendor or customer cannot be empty!");
+            return;
+        }
+        if (vendor.contains("|")){
+            System.out.println("Vendor or customer cannot contain the | character!");
             return;
         }
         double amount = readAmount("Enter amount: ");
@@ -153,6 +166,7 @@ public class Main {
             System.out.println("No transactions found.");
             return;
         }
+        System.out.println("Total transactions found: " + transactionList.size());
         ArrayList<Transaction> sortedList = new ArrayList<>(transactionList);
         sortedList.sort((first, second) ->{
             int dateOrder = second.getDate().compareTo(first.getDate());
@@ -539,10 +553,10 @@ public class Main {
         LocalDate date;
         LocalTime time;
         try{
-            System.out.print("\uD83D\uDCC5 Appointment date UTC (YYYY-MM-DD): ");
+            System.out.print("\uD83D\uDCC5 Appointment date (YYYY-MM-DD): ");
             date = LocalDate.parse(scanner.nextLine().trim());
 
-            System.out.print("⏰ Appointment time UTC (HH:MM): ");
+            System.out.print("⏰ Appointment time (HH:MM): ");
             time = LocalTime.parse(scanner.nextLine().trim());
         }catch (Exception ex){
             System.out.println("\uD83D\uDC3E Invalid date or time!");
@@ -550,7 +564,7 @@ public class Main {
             return;
         }
 
-        if (!date.atTime(time).isAfter(LocalDateTime.now(ZoneOffset.UTC))){
+        if (!date.atTime(time).isAfter(LocalDateTime.now())){
             System.out.println("Please choose a future appointment.");
             return;
         }
@@ -563,7 +577,7 @@ public class Main {
             return;
         }
         //convert appointment to UTC
-        ZoneId userZone = ZoneId.of("America/New_York");
+        ZoneId userZone = ZoneId.systemDefault();
 
         LocalDateTime localDateTime = date.atTime(time);
         ZonedDateTime utcDateTime = localDateTime.atZone(userZone).withZoneSameInstant(ZoneOffset.UTC);
@@ -592,8 +606,8 @@ public class Main {
             System.out.println("Pet: " + selectedProfile.getPetName());
             System.out.println("Owner: " + selectedProfile.getOwnerName());
             System.out.println("Reason: " + reason);
-            System.out.println("Date (UTC): " + date);
-            System.out.println("Time (UTC): " + time);
+            System.out.println("Date: " + localDateTime.toLocalDate());
+            System.out.println("Time: " + localDateTime.toLocalTime());
         }else{
             appointments.remove(newAppointment);
             System.out.println("Unable to save appointments");
@@ -612,7 +626,12 @@ public class Main {
             }
             return first.getTime().compareTo(second.getTime());
         });
-        System.out.println("\nSCHEDULED APPOINTMENTS (UTC)");
+
+        // Gets the secretarys local time zone
+
+        ZoneId userZone = ZoneId.systemDefault();
+
+        System.out.println("\nSCHEDULED APPOINTMENTS (LOCAL TIME)");
         System.out.println("-".repeat(100));
 
         System.out.printf("%-5s %-10s %-15s %-18s %-22s %-15s %-10s%n", "ID", "Client", "Pet", "Owner", "Reason", "Date", "Time");

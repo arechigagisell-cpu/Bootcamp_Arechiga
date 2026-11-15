@@ -33,7 +33,7 @@ public class ProfileManager {
         return profiles;
     }
     public static boolean saveProfile(ClientProfile profile){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME,true))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("profiles.csv",true))){
             writer.write(profile.toCsv());
             writer.newLine();
             return true;
